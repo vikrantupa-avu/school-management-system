@@ -197,3 +197,26 @@ button.danger { background: var(--danger); }
   .sidebar { position: sticky; top: 0; z-index: 1; }
   .auth-card { grid-template-columns: 1fr; }
 }
+
+.lookup-results {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+.lookup-results button {
+  text-align: left;
+  background: #eef3ff;
+  color: #233682;
+}
+
+.lookup-results button:hover {
+  background: #dce8ff;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: #32415f;
+}

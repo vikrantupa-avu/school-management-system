@@ -4,13 +4,14 @@ import { canAccessPage, getAllowedPageKeys, getDefaultHomePath, getVisibleLinks 
 
 test('admin has full navigation access', () => {
   const keys = getAllowedPageKeys('admin');
-  assert.deepEqual(keys, ['dashboard', 'students', 'teachers', 'classes', 'attendance', 'grades', 'fees', 'announcements']);
+  assert.deepEqual(keys, ['dashboard', 'students', 'teachers', 'classes', 'subjects', 'attendance', 'grades', 'fees', 'announcements']);
+  assert.equal(canAccessPage('admin', 'subjects'), true);
   assert.equal(canAccessPage('admin', 'fees'), true);
 });
 
 test('teacher only sees teaching modules and default path is classes', () => {
   const keys = getAllowedPageKeys('teacher');
-  assert.deepEqual(keys, ['classes', 'attendance', 'grades']);
+  assert.deepEqual(keys, ['classes', 'subjects', 'attendance', 'grades']);
   assert.equal(canAccessPage('teacher', 'dashboard'), false);
   assert.equal(getDefaultHomePath('teacher'), '/classes.html');
 });

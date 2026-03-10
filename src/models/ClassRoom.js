@@ -4,14 +4,14 @@ const classRoomSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     academicYear: { type: String, required: true },
-    roomNumber: String,
+    roomNumber: { type: String, default: '' },
     classTeacher: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher' },
-    subjects: [{ type: String }],
+    subjects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subject' }],
     schedule: [
       {
         day: String,
         period: Number,
-        subject: String,
+        subject: { type: mongoose.Schema.Types.ObjectId, ref: 'Subject' },
         startTime: String,
         endTime: String
       }

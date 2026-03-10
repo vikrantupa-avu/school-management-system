@@ -1,4 +1,4 @@
-# School Management System (Full JavaScript Stack)
+# IRAGyan (Full JavaScript Stack)
 
 A production-ready starter for a school management system using **JavaScript across the entire stack**:
 - Backend: Node.js + Express + MongoDB (free local Community edition or free Atlas tier)
