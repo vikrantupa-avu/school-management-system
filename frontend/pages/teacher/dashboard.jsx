@@ -1,31 +1,28 @@
-import DashboardLayout from '../../components/layout/DashboardLayout';
-import Card from '../../components/ui/Card';
-import Button from '../../components/ui/Button';
+import MainLayout from '../../layouts/MainLayout';
+import PageHeader from '../../components/PageHeader';
+import Button from '../../components/Button';
 
 export default function TeacherDashboardPage() {
   return (
-    <DashboardLayout title="Teacher Dashboard">
-      <div className="grid gap-4 lg:grid-cols-3">
-        <Card title="Today's Classes">
-          <ul className="space-y-2 text-sm text-slate-700">
+    <MainLayout title="Teacher Dashboard">
+      <PageHeader title="Teacher Dashboard" subtitle="Class schedule and daily teaching actions." />
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="rounded-xl border border-slate-200 bg-white p-4">
+          <h3 className="font-semibold">Today's Classes</h3>
+          <ul className="mt-2 text-sm text-slate-600">
             <li>9:00 AM — Class 5A Math</li>
             <li>10:00 AM — Class 6B Science</li>
           </ul>
-        </Card>
-        <Card title="Quick Actions">
-          <div className="grid gap-2">
+        </div>
+        <div className="rounded-xl border border-slate-200 bg-white p-4">
+          <h3 className="font-semibold">Quick Actions</h3>
+          <div className="mt-3 grid gap-2">
             <Button>Mark Attendance</Button>
             <Button variant="secondary">Upload Homework</Button>
             <Button variant="secondary">Enter Grades</Button>
           </div>
-        </Card>
-        <Card title="Recent Announcements">
-          <ul className="space-y-2 text-sm text-slate-700">
-            <li>Monthly staff meeting on Friday.</li>
-            <li>Exam schedule published.</li>
-          </ul>
-        </Card>
+        </div>
       </div>
-    </DashboardLayout>
+    </MainLayout>
   );
 }
