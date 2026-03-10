@@ -8,51 +8,61 @@
   </head>
   <body>
     <main class="container">
-      <h1>School Management System</h1>
-      <p>JavaScript full-stack starter with authentication, role-based access, and core school modules.</p>
+      <header class="card">
+        <h1>School Management System</h1>
+        <p>
+          End-to-end management UI for authentication, students, teachers, classes/timetable, attendance,
+          grades, fees, announcements, and dashboard analytics.
+        </p>
+      </header>
 
-      <section>
-        <h2>Quick start</h2>
-        <ol>
-          <li>Register an admin user.</li>
-          <li>Log in and copy token.</li>
-          <li>Use token to call module APIs.</li>
-        </ol>
+      <section class="card auth-grid">
+        <div>
+          <h2>Register</h2>
+          <form id="register-form">
+            <input name="name" placeholder="Name" required />
+            <input name="email" placeholder="Email" type="email" required />
+            <input name="password" placeholder="Password (min 8 chars)" type="password" required />
+            <select name="role">
+              <option value="admin">admin</option>
+              <option value="staff">staff</option>
+              <option value="teacher">teacher</option>
+              <option value="student">student</option>
+              <option value="finance">finance</option>
+              <option value="parent">parent</option>
+            </select>
+            <button type="submit">Register user</button>
+          </form>
+        </div>
+
+        <div>
+          <h2>Login</h2>
+          <form id="login-form">
+            <input name="email" placeholder="Email" type="email" required />
+            <input name="password" placeholder="Password" type="password" required />
+            <button type="submit">Login</button>
+          </form>
+          <button id="logout-btn" class="secondary" type="button">Logout</button>
+          <p id="session-info">Not logged in.</p>
+        </div>
       </section>
 
       <section class="card">
-        <h3>Register</h3>
-        <form id="register-form">
-          <input name="name" placeholder="Name" required />
-          <input name="email" placeholder="Email" type="email" required />
-          <input name="password" placeholder="Password (min 8 chars)" type="password" required />
-          <select name="role">
-            <option value="admin">admin</option>
-            <option value="staff">staff</option>
-            <option value="teacher">teacher</option>
-            <option value="student">student</option>
-            <option value="finance">finance</option>
-            <option value="parent">parent</option>
-          </select>
-          <button type="submit">Register</button>
-        </form>
+        <h2>Dashboard</h2>
+        <button id="dashboard-btn" type="button">Load Dashboard Summary</button>
       </section>
 
       <section class="card">
-        <h3>Login</h3>
-        <form id="login-form">
-          <input name="email" placeholder="Email" type="email" required />
-          <input name="password" placeholder="Password" type="password" required />
-          <button type="submit">Login</button>
-        </form>
+        <h2>Module Workspace</h2>
+        <p id="workspace-help">Login to load modules available to your role.</p>
+        <div id="module-tabs" class="tabs"></div>
+        <div id="module-content"></div>
       </section>
 
       <section class="card">
-        <h3>Dashboard</h3>
-        <button id="dashboard-btn">Load Dashboard /api/dashboard</button>
+        <h2>API Output</h2>
+        <pre id="output">Output appears here.</pre>
       </section>
-
-      <pre id="output">Output appears here.</pre>
     </main>
 
     <script src="/app.js"></script>
