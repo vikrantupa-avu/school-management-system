@@ -225,12 +225,17 @@ const parseValue = (field, value) => {
 
 export const formToPayload = (form, fields = []) => {
   const payload = {};
-  const data = new FormData(form);
+  const data = form instanceof FormData ? form : new FormData(form);
   const fieldMap = new Map(fields.map((field) => [field.name, field]));
 
   for (const [key, value] of data.entries()) {
     const field = fieldMap.get(key);
-    if (!field || value === '') continue;
+    if (value === '') continue;
+
+    if (!field) {
+      payload[key] = value;
+      continue;
+    }
 
     if (field.type === 'lookup-multi') {
       const values = value.split(',').map((item) => item.trim()).filter(Boolean);
