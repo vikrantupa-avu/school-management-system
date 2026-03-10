@@ -8,51 +8,200 @@
   </head>
   <body>
     <main class="container">
-      <h1>School Management System</h1>
-      <p>JavaScript full-stack starter with authentication, role-based access, and core school modules.</p>
+      <header class="card hero">
+        <h1>School Management System</h1>
+        <p>
+          End-to-end starter app for authentication, role-based actions, students, teachers, classes + timetable,
+          attendance, grades, fees, announcements, and dashboard stats.
+        </p>
+        <p id="session-info">Not logged in.</p>
+      </header>
 
-      <section>
-        <h2>Quick start</h2>
-        <ol>
-          <li>Register an admin user.</li>
-          <li>Log in and copy token.</li>
-          <li>Use token to call module APIs.</li>
-        </ol>
+      <section class="grid two-col auth-grid">
+        <section class="card">
+          <h2>Register User</h2>
+          <form id="register-form">
+            <input name="name" placeholder="Full name" required />
+            <input name="email" placeholder="Email" type="email" required />
+            <input name="password" placeholder="Password (min 8 chars)" type="password" required />
+            <select name="role">
+              <option value="admin">admin</option>
+              <option value="staff">staff</option>
+              <option value="teacher">teacher</option>
+              <option value="student">student</option>
+              <option value="finance">finance</option>
+              <option value="parent">parent</option>
+            </select>
+            <button type="submit">Register</button>
+          </form>
+        </section>
+
+        <section class="card">
+          <h2>Login</h2>
+          <form id="login-form">
+            <input name="email" placeholder="Email" type="email" required />
+            <input name="password" placeholder="Password" type="password" required />
+            <button type="submit">Login</button>
+          </form>
+          <button id="logout-btn" class="secondary">Logout</button>
+        </section>
+      </section>
+
+      <section class="card" id="dashboard-card">
+        <div class="row between">
+          <h2>Dashboard</h2>
+          <button id="dashboard-btn">Load Dashboard</button>
+        </div>
+        <div id="dashboard-summary" class="summary-grid"></div>
       </section>
 
       <section class="card">
-        <h3>Register</h3>
-        <form id="register-form">
-          <input name="name" placeholder="Name" required />
-          <input name="email" placeholder="Email" type="email" required />
-          <input name="password" placeholder="Password (min 8 chars)" type="password" required />
-          <select name="role">
-            <option value="admin">admin</option>
-            <option value="staff">staff</option>
-            <option value="teacher">teacher</option>
-            <option value="student">student</option>
-            <option value="finance">finance</option>
-            <option value="parent">parent</option>
-          </select>
-          <button type="submit">Register</button>
-        </form>
+        <h2>Modules</h2>
+        <p class="muted">Available modules depend on your logged-in role.</p>
+      </section>
+
+      <section class="grid two-col" id="module-grid">
+        <section class="card module" data-module="students">
+          <div class="row between">
+            <h3>Students</h3>
+            <button data-list="students" class="secondary">List</button>
+          </div>
+          <form data-create="students">
+            <input name="admissionNumber" placeholder="Admission number" required />
+            <input name="firstName" placeholder="First name" required />
+            <input name="lastName" placeholder="Last name" required />
+            <input name="classLevel" placeholder="Class level" required />
+            <input name="section" placeholder="Section" />
+            <input name="guardianName" placeholder="Guardian name" />
+            <input name="guardianPhone" placeholder="Guardian phone" />
+            <input name="address" placeholder="Address" />
+            <label><input name="transportRequired" type="checkbox" /> Transport required</label>
+            <button type="submit">Create Student</button>
+          </form>
+        </section>
+
+        <section class="card module" data-module="teachers">
+          <div class="row between">
+            <h3>Teachers</h3>
+            <button data-list="teachers" class="secondary">List</button>
+          </div>
+          <form data-create="teachers">
+            <input name="employeeId" placeholder="Employee ID" required />
+            <input name="firstName" placeholder="First name" required />
+            <input name="lastName" placeholder="Last name" required />
+            <input name="department" placeholder="Department" required />
+            <input name="subjects" placeholder="Subjects (comma separated)" />
+            <input name="phone" placeholder="Phone" />
+            <input name="qualification" placeholder="Qualification" />
+            <button type="submit">Create Teacher</button>
+          </form>
+        </section>
+
+        <section class="card module" data-module="classes">
+          <div class="row between">
+            <h3>Classes & Timetable</h3>
+            <button data-list="classes" class="secondary">List</button>
+          </div>
+          <form data-create="classes">
+            <input name="name" placeholder="Class name" required />
+            <input name="academicYear" placeholder="Academic year" required />
+            <input name="roomNumber" placeholder="Room number" />
+            <input name="subjects" placeholder="Subjects (comma separated)" />
+            <textarea name="schedule" rows="4" placeholder='Schedule JSON array (optional), e.g. [{"day":"Mon","period":1,"subject":"Math","startTime":"09:00","endTime":"09:45"}]'></textarea>
+            <button type="submit">Create Class</button>
+          </form>
+        </section>
+
+        <section class="card module" data-module="attendance">
+          <div class="row between">
+            <h3>Attendance</h3>
+            <button data-list="attendance" class="secondary">List</button>
+          </div>
+          <form data-create="attendance">
+            <input name="student" placeholder="Student ID" required />
+            <input name="classRoom" placeholder="Class ID" required />
+            <input name="date" type="date" required />
+            <select name="status">
+              <option value="present">present</option>
+              <option value="absent">absent</option>
+              <option value="late">late</option>
+              <option value="excused">excused</option>
+            </select>
+            <input name="remarks" placeholder="Remarks" />
+            <button type="submit">Mark Attendance</button>
+          </form>
+        </section>
+
+        <section class="card module" data-module="grades">
+          <div class="row between">
+            <h3>Grades</h3>
+            <button data-list="grades" class="secondary">List</button>
+          </div>
+          <form data-create="grades">
+            <input name="student" placeholder="Student ID" required />
+            <input name="classRoom" placeholder="Class ID" required />
+            <input name="subject" placeholder="Subject" required />
+            <select name="examType">
+              <option value="quiz">quiz</option>
+              <option value="midterm">midterm</option>
+              <option value="final">final</option>
+              <option value="assignment">assignment</option>
+              <option value="project">project</option>
+            </select>
+            <input name="score" placeholder="Score" type="number" required />
+            <input name="maxScore" placeholder="Max score" type="number" required />
+            <input name="gradeLetter" placeholder="Grade letter" />
+            <input name="comments" placeholder="Comments" />
+            <button type="submit">Record Grade</button>
+          </form>
+        </section>
+
+        <section class="card module" data-module="fees">
+          <div class="row between">
+            <h3>Fees</h3>
+            <button data-list="fees" class="secondary">List</button>
+          </div>
+          <form data-create="fees">
+            <input name="student" placeholder="Student ID" required />
+            <input name="term" placeholder="Term" required />
+            <input name="academicYear" placeholder="Academic year" required />
+            <input name="tuition" type="number" placeholder="Tuition" required />
+            <input name="transport" type="number" placeholder="Transport" value="0" />
+            <input name="books" type="number" placeholder="Books" value="0" />
+            <input name="miscellaneous" type="number" placeholder="Misc" value="0" />
+            <input name="paidAmount" type="number" placeholder="Paid amount" value="0" />
+            <select name="status">
+              <option value="unpaid">unpaid</option>
+              <option value="partial">partial</option>
+              <option value="paid">paid</option>
+            </select>
+            <button type="submit">Create Fee Record</button>
+          </form>
+        </section>
+
+        <section class="card module" data-module="announcements">
+          <div class="row between">
+            <h3>Announcements</h3>
+            <button data-list="announcements" class="secondary">List</button>
+          </div>
+          <form data-create="announcements">
+            <input name="title" placeholder="Title" required />
+            <textarea name="message" rows="3" placeholder="Message" required></textarea>
+            <input name="audience" placeholder="Audience comma list: all,students,teachers,parents,staff" />
+            <select name="priority">
+              <option value="normal">normal</option>
+              <option value="low">low</option>
+              <option value="high">high</option>
+            </select>
+            <button type="submit">Publish Announcement</button>
+          </form>
+        </section>
       </section>
 
       <section class="card">
-        <h3>Login</h3>
-        <form id="login-form">
-          <input name="email" placeholder="Email" type="email" required />
-          <input name="password" placeholder="Password" type="password" required />
-          <button type="submit">Login</button>
-        </form>
+        <h2>API Output</h2>
+        <pre id="output">Output appears here.</pre>
       </section>
-
-      <section class="card">
-        <h3>Dashboard</h3>
-        <button id="dashboard-btn">Load Dashboard /api/dashboard</button>
-      </section>
-
-      <pre id="output">Output appears here.</pre>
     </main>
 
     <script src="/app.js"></script>
