@@ -1,5 +1,25 @@
 const SESSION_KEY = 'sms_session';
 
+const roleAccess = {
+  admin: ['dashboard', 'students', 'teachers', 'classes', 'attendance', 'grades', 'fees', 'announcements'],
+  staff: ['dashboard', 'students', 'teachers', 'classes', 'attendance', 'announcements'],
+  teacher: ['classes', 'attendance', 'grades'],
+  finance: ['dashboard', 'fees'],
+  parent: [],
+  student: []
+};
+
+const allLinks = [
+  ['dashboard', '/dashboard.html', 'Dashboard'],
+  ['students', '/students.html', 'Students'],
+  ['teachers', '/teachers.html', 'Teachers'],
+  ['classes', '/classes.html', 'Classes'],
+  ['attendance', '/attendance.html', 'Attendance'],
+  ['grades', '/grades.html', 'Grades'],
+  ['fees', '/fees.html', 'Fees'],
+  ['announcements', '/announcements.html', 'Announcements']
+];
+
 export const moduleConfigs = {
   students: {
     title: 'Student Information Management',
@@ -54,6 +74,21 @@ export const clearSession = () => {
   localStorage.removeItem(SESSION_KEY);
 };
 
+export const getAllowedPageKeys = (role) => roleAccess[role] || [];
+
+export const canAccessPage = (role, pageKey) => getAllowedPageKeys(role).includes(pageKey);
+
+export const getDefaultHomePath = (role) => {
+  const firstPage = getAllowedPageKeys(role)[0];
+  if (!firstPage || firstPage === 'dashboard') return '/dashboard.html';
+  return `/${firstPage}.html`;
+};
+
+export const getVisibleLinks = (role) => {
+  const allowed = new Set(getAllowedPageKeys(role));
+  return allLinks.filter(([key]) => allowed.has(key));
+};
+
 export const withAuthGuard = () => {
   if (!getSession()) {
     window.location.href = '/login.html';
@@ -106,25 +141,19 @@ export const request = async (url, { method = 'GET', body } = {}) => {
 
 export const mountShell = (activePage) => {
   const session = getSession();
-  const links = [
-    ['dashboard', '/dashboard.html', 'Dashboard'],
-    ['students', '/students.html', 'Students'],
-    ['teachers', '/teachers.html', 'Teachers'],
-    ['classes', '/classes.html', 'Classes'],
-    ['attendance', '/attendance.html', 'Attendance'],
-    ['grades', '/grades.html', 'Grades'],
-    ['fees', '/fees.html', 'Fees'],
-    ['announcements', '/announcements.html', 'Announcements']
-  ];
+  const role = session?.user?.role;
+  const links = getVisibleLinks(role);
 
   return `
     <div class="page-shell">
       <aside class="sidebar">
         <div class="logo">🏫 School Management</div>
         <nav class="nav-list">
-          ${links
+          ${links.length
+            ? links
             .map(([key, href, label]) => `<a class="nav-link ${activePage === key ? 'active' : ''}" href="${href}">${label}</a>`)
-            .join('')}
+            .join('')
+            : '<div class="nav-link">No modules assigned</div>'}
           <a class="nav-link" href="#" id="logout-link">Logout</a>
         </nav>
       </aside>
