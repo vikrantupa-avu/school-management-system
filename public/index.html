@@ -1,62 +1,43 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>School Management System</title>
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
+  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>School Management • Welcome</title><link rel="stylesheet" href="/styles.css" /></head>
   <body>
-    <main class="container">
-      <h1>School Management System</h1>
-      <p>Manage authentication, students, teachers, classes, attendance, grades, fees, announcements, and dashboard insights from one screen.</p>
+    <main class="page">
+      <section class="hero">
+        <h1>School Management System</h1>
+        <p>Beautiful multi-screen web app for operations: authentication, dashboards, and dedicated pages per module.</p>
+        <div id="session"></div>
+      </section>
 
-      <section class="card auth-grid">
-        <div>
-          <h2>Register</h2>
-          <form id="register-form">
-            <input name="name" placeholder="Name" required />
-            <input name="email" placeholder="Email" type="email" required />
-            <input name="password" placeholder="Password (min 8 chars)" type="password" required />
-            <select name="role">
-              <option value="admin">admin</option>
-              <option value="staff">staff</option>
-              <option value="teacher">teacher</option>
-              <option value="student">student</option>
-              <option value="finance">finance</option>
-              <option value="parent">parent</option>
-            </select>
-            <button type="submit">Register</button>
-          </form>
-        </div>
-
-        <div>
+      <div class="grid grid-2" style="margin-top:1rem">
+        <section class="card">
           <h2>Login</h2>
           <form id="login-form">
-            <input name="email" placeholder="Email" type="email" required />
-            <input name="password" placeholder="Password" type="password" required />
-            <button type="submit">Login</button>
+            <label>Email<input name="email" type="email" required /></label>
+            <label>Password<input name="password" type="password" required /></label>
+            <button type="submit">Login & Go to Dashboard</button>
           </form>
-          <p id="session-info">Not logged in.</p>
-        </div>
-      </section>
+        </section>
 
-      <section class="card">
-        <h2>Dashboard</h2>
-        <button id="dashboard-btn">Load Dashboard /api/dashboard</button>
-      </section>
+        <section class="card">
+          <h2>Register</h2>
+          <form id="register-form">
+            <label>Name<input name="name" required /></label>
+            <label>Email<input name="email" type="email" required /></label>
+            <label>Password<input name="password" type="password" required /></label>
+            <label>Role
+              <select name="role">
+                <option value="admin">admin</option><option value="staff">staff</option><option value="teacher">teacher</option>
+                <option value="student">student</option><option value="parent">parent</option><option value="finance">finance</option>
+              </select>
+            </label>
+            <button class="secondary" type="submit">Create account</button>
+          </form>
+        </section>
+      </div>
 
-      <section class="card">
-        <h2>School Modules</h2>
-        <div id="module-actions" class="actions"></div>
-      </section>
-
-      <section class="card">
-        <h2>Output</h2>
-        <pre id="output">Output appears here.</pre>
-      </section>
+      <section class="card"><h3>Response</h3><pre id="output">Sign in to enter the app.</pre></section>
     </main>
-
-    <script src="/app.js"></script>
+    <script type="module" src="/js/index.js"></script>
   </body>
 </html>

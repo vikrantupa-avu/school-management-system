@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>School Management • Teachers</title><link rel="stylesheet" href="/styles.css" /></head>
+<body data-module="teachers">
+  <main class="page">
+    <section class="hero"><h1>Teachers Management</h1><p>Dedicated screen for teachers workflows.</p></section>
+    <div class="topbar"><span class="badge" id="whoami"></span><a href="/dashboard.html">← Back to dashboard</a></div>
+    <section class="grid grid-2">
+      <article class="card">
+        <h3>Create teacher</h3>
+        <form id="create-form"><button type="submit">Create</button></form>
+      </article>
+      <article class="card">
+        <h3>Actions</h3>
+        <button id="list-btn" class="secondary">Reload list</button>
+        <input id="delete-id" placeholder="Record id" />
+        <button id="delete-btn" class="danger">Delete by id</button>
+        <table class="table"><thead><tr><th>ID</th><th>Preview</th></tr></thead><tbody id="rows"></tbody></table>
+      </article>
+    </section>
+    <section class="card" style="margin-top:1rem"><h3>Output</h3><pre id="output"></pre></section>
+  </main>
+  <script type="module" src="/js/module-page.js"></script>
+</body>
+</html>

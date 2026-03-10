@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>School Management • Dashboard</title><link rel="stylesheet" href="/styles.css" /></head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>Operations Dashboard</h1>
+      <p>Use dedicated screens for each domain module.</p>
+    </section>
+
+    <div class="topbar">
+      <span class="badge" id="whoami"></span>
+      <div style="display:flex; gap:.5rem"><button id="refresh-btn">Refresh Dashboard</button><button class="danger" id="logout-btn">Logout</button></div>
+    </div>
+
+    <nav class="nav">
+      <a href="/students.html">Students</a>
+      <a href="/teachers.html">Teachers</a>
+      <a href="/classes.html">Classes</a>
+      <a href="/attendance.html">Attendance</a>
+      <a href="/grades.html">Grades</a>
+      <a href="/fees.html">Fees</a>
+      <a href="/announcements.html">Announcements</a>
+    </nav>
+
+    <section class="grid grid-3">
+      <article class="stat">Active Students<strong id="student-count">-</strong></article>
+      <article class="stat">Active Teachers<strong id="teacher-count">-</strong></article>
+      <article class="stat">Classes<strong id="class-count">-</strong></article>
+      <article class="stat">Recent Announcements<strong id="announcement-count">-</strong></article>
+    </section>
+
+    <section class="card" style="margin-top:1rem"><h3>API Output</h3><pre id="output"></pre></section>
+  </main>
+  <script type="module" src="/js/dashboard.js"></script>
+</body>
+</html>
