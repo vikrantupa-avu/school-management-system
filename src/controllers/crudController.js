@@ -1,13 +1,20 @@
 import { asyncHandler } from '../utils/asyncHandler.js';
 
+const getSchoolFilter = (req) => (req.params.schoolId ? { schoolId: req.params.schoolId } : {});
+
 export const buildCrudController = (Model, { populate = '', searchableFields = [] } = {}) => ({
   create: asyncHandler(async (req, res) => {
-    const record = await Model.create(req.body);
+    const payload = { ...req.body };
+    if (req.params.schoolId && !payload.schoolId) {
+      payload.schoolId = req.params.schoolId;
+    }
+
+    const record = await Model.create(payload);
     res.status(201).json(record);
   }),
   list: asyncHandler(async (req, res) => {
     const { search = '', limit } = req.query;
-    const queryFilter = {};
+    const queryFilter = { ...getSchoolFilter(req) };
 
     if (search && searchableFields.length) {
       queryFilter.$or = searchableFields.map((field) => ({
@@ -23,7 +30,7 @@ export const buildCrudController = (Model, { populate = '', searchableFields = [
     res.json(records);
   }),
   getById: asyncHandler(async (req, res) => {
-    const query = Model.findById(req.params.id);
+    const query = Model.findOne({ _id: req.params.id, ...getSchoolFilter(req) });
     if (populate) query.populate(populate);
     const record = await query;
     if (!record) {
@@ -33,7 +40,7 @@ export const buildCrudController = (Model, { populate = '', searchableFields = [
     return res.json(record);
   }),
   update: asyncHandler(async (req, res) => {
-    const record = await Model.findByIdAndUpdate(req.params.id, req.body, {
+    const record = await Model.findOneAndUpdate({ _id: req.params.id, ...getSchoolFilter(req) }, req.body, {
       new: true,
       runValidators: true
     });
@@ -45,7 +52,7 @@ export const buildCrudController = (Model, { populate = '', searchableFields = [
     return res.json(record);
   }),
   remove: asyncHandler(async (req, res) => {
-    const record = await Model.findByIdAndDelete(req.params.id);
+    const record = await Model.findOneAndDelete({ _id: req.params.id, ...getSchoolFilter(req) });
     if (!record) {
       return res.status(404).json({ message: 'Record not found.' });
     }

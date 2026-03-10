@@ -4,7 +4,9 @@ import { Subject } from '../models/Subject.js';
 import { ClassRoom } from '../models/ClassRoom.js';
 import { Teacher } from '../models/Teacher.js';
 
-const router = Router();
+const router = Router({ mergeParams: true });
+
+const withSchoolFilter = (req, filter) => (req.params.schoolId ? { ...filter, schoolId: req.params.schoolId } : filter);
 
 const lookupBuilders = {
   students: {
@@ -54,7 +56,8 @@ router.get('/:entity', async (req, res) => {
     return res.status(404).json({ message: 'Lookup entity not found.' });
   }
 
-  const records = await lookup.Model.find(lookup.filter(search)).limit(10).sort({ createdAt: -1 });
+  const filter = withSchoolFilter(req, lookup.filter(search));
+  const records = await lookup.Model.find(filter).limit(10).sort({ createdAt: -1 });
   return res.json(records.map((record) => ({ id: record._id, label: lookup.label(record) })));
 });
 

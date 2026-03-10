@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const feeSchema = new mongoose.Schema(
   {
+    schoolId: { type: String, index: true },
     student: { type: mongoose.Schema.Types.ObjectId, ref: 'Student', required: true },
     term: { type: String, required: true },
     academicYear: { type: String, required: true },

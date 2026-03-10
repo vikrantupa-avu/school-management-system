@@ -11,6 +11,7 @@ const emergencyContactSchema = new mongoose.Schema(
 
 const studentSchema = new mongoose.Schema(
   {
+    schoolId: { type: String, index: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     admissionNumber: { type: String, required: true, unique: true },
     firstName: { type: String, required: true },

@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const announcementSchema = new mongoose.Schema(
   {
+    schoolId: { type: String, index: true },
     title: { type: String, required: true },
     message: { type: String, required: true },
     audience: [{ type: String, enum: ['all', 'students', 'teachers', 'parents', 'staff'] }],

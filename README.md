@@ -1,99 +1,85 @@
 # IRAGyan (Full JavaScript Stack)
 
-A production-ready starter for a school management system using **JavaScript across the entire stack**:
-- Backend: Node.js + Express + MongoDB (free local Community edition or free Atlas tier)
-- Frontend: HTML/CSS/Vanilla JS client served by Express
+A production-ready starter for **IRAGyan** using JavaScript across the stack:
+- Backend: Node.js + Express + MongoDB
+- Frontend: Existing Express-served HTML/CSS/Vanilla JS app
+- Extended Frontend Layer: React-style `/frontend` UI module scaffold with reusable layout/components
 - Authentication: JWT + role-based access control
 
-## Key feature modules included
+## Existing architecture (current repository)
 
-- User authentication and roles (admin, staff, teacher, student, parent, finance)
-- Student information management
-- Teacher management
-- Class and timetable setup
-- Attendance tracking
-- Grades and exam records
-- Fee management and payment status tracking
-- Announcements and school notices
-- Dashboard API with key counts and finance aggregates
+### Backend structure
+- `src/server.js` boots the app and DB connection
+- `src/app.js` wires middleware + static assets + API router
+- `src/routes/` contains auth, CRUD, lookups, and route registration
+- `src/controllers/` contains auth, generic CRUD, dashboard handlers
+- `src/models/` stores Mongoose schemas
+- `src/middleware/` includes auth + error handlers
 
-## Feature checklist to think of "everything"
+### Frontend structure
+- `public/` serves the working UI (auth, dashboard, module screens, marketing pages)
+- `public/js/api.js` centralizes session, API request helpers, and role-aware module config
+- `public/js/module-page.js` renders typed create/list/delete forms + lookup autocomplete
 
-### Academic operations
-- Admission workflow and student profiles
-- Class/section management
-- Subject planning and timetables
-- Attendance (daily / period-level)
-- Continuous assessment and exam records
-- Report card generation (next step)
+### Auth and permissions
+- JWT auth in `src/controllers/authController.js`
+- `authenticate` + `authorize` middleware in `src/middleware/auth.js`
+- Role-based module visibility handled in `public/js/api.js`
 
-### Communication
-- Announcements by audience segment
-- Parent-teacher meeting scheduling (next step)
-- Notifications (email/SMS/push) integration points (next step)
+## Core modules included
+- authentication
+- students
+- teachers
+- classes
+- subjects
+- attendance
+- grades
+- fees
+- announcements
 
-### Finance
-- Fee structures by term/year
-- Payment status: paid/partial/unpaid
-- Outstanding balances summary in dashboard
-- Online payments integration (next step)
+## Multi-school API support (backward compatible)
 
-### Admin and governance
-- Role-based permissions
-- Audit logs (next step)
-- Data export (CSV/PDF) (next step)
-- Multi-school tenancy support (next step)
+Existing endpoints continue to work:
+- `/api/students`, `/api/teachers`, etc.
 
-### Student support and operations
-- Transport allocation fields
-- Emergency contact records
-- Health/discipline/counseling modules (next step)
+Scoped endpoints are also supported:
+- `/api/{schoolId}/students`
+- `/api/{schoolId}/teachers`
+- `/api/{schoolId}/classes`
+- `/api/{schoolId}/subjects`
+- `/api/{schoolId}/attendance`
+- `/api/{schoolId}/fees`
+- `/api/{schoolId}/announcements`
+- `/api/{schoolId}/lookups/{entity}`
 
-## API overview
+## New React-style frontend extension (`/frontend`)
 
-All endpoints are under `/api`.
+Added reusable layout + UI system and pages:
+- `frontend/components/layout`: `DashboardLayout`, `Sidebar`, `Topbar`
+- `frontend/components/ui`: `Button`, `Card`, `StatCard`, `DataTable`, `Modal`, `Tabs`, `FormInput`, `Select`, `Avatar`
+- `frontend/pages/dashboard.jsx`
+- `frontend/pages/students/{index,create,[id]}.jsx`
+- `frontend/pages/teacher/dashboard.jsx`
+- `frontend/pages/attendance/mark.jsx`
+- `frontend/pages/fees/{structure,collection,reports}.jsx`
+- `frontend/pages/announcements/index.jsx`
 
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `GET /api/dashboard`
-- CRUD modules:
-  - `/api/students`
-  - `/api/teachers`
-  - `/api/classes`
-  - `/api/attendance`
-  - `/api/grades`
-  - `/api/fees`
-  - `/api/announcements`
+Design notes:
+- Tailwind-style utility classes
+- Sidebar + topbar layout with mobile bottom navigation
+- Data table includes sorting + pagination
+- Query helper (`react-query`) and API helper scaffolding provided
 
 ## Local setup
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Copy environment template:
-   ```bash
-   cp .env.example .env
-   ```
-3. Ensure MongoDB is running locally or use free Atlas URI.
-4. Start the app:
-   ```bash
-   npm run dev
-   ```
-5. Open `http://localhost:4000`.
+```bash
+npm install
+cp .env.example .env
+npm run dev
+```
 
 ## Testing
 
 ```bash
 npm test
 ```
-
-## Recommended next implementation steps
-
-1. Add full validation (Joi/Zod).
-2. Add audit logs and soft deletes.
-3. Add exam result publishing + transcript exports.
-4. Add parent and student self-service portal views.
-5. Add background jobs for reminders (attendance/fees).
-6. Add containerization (Docker + Mongo service).
-7. Add CI pipeline with linting and integration tests.

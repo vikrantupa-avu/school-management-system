@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 export const buildCrudRouter = (controller) => {
-  const router = Router();
+  const router = Router({ mergeParams: true });
 
   router.post('/', controller.create);
   router.get('/', controller.list);

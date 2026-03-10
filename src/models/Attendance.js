@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const attendanceSchema = new mongoose.Schema(
   {
+    schoolId: { type: String, index: true },
     student: { type: mongoose.Schema.Types.ObjectId, ref: 'Student', required: true },
     classRoom: { type: mongoose.Schema.Types.ObjectId, ref: 'ClassRoom', required: true },
     subject: { type: mongoose.Schema.Types.ObjectId, ref: 'Subject', required: true },
