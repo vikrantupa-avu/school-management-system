@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | School Management</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="auth-layout">
+      <section class="auth-card">
+        <aside class="auth-side">
+          <h1>Welcome back</h1>
+          <p>Log in to access your dashboard and dedicated management screens.</p>
+        </aside>
+        <div class="auth-form">
+          <h2>Login</h2>
+          <form id="login-form">
+            <input name="email" type="email" placeholder="Email" required />
+            <input name="password" type="password" placeholder="Password" required />
+            <button type="submit">Login and continue</button>
+          </form>
+          <p><a href="/register.html">Need an account? Register</a></p>
+          <pre id="output" class="output">Waiting for login...</pre>
+        </div>
+      </section>
+    </div>
+    <script type="module" src="/js/auth.js"></script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | School Management</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="auth-layout">
+      <section class="auth-card">
+        <aside class="auth-side">
+          <h1>Create account</h1>
+          <p>Register as admin, staff, teacher, finance, student, or parent.</p>
+        </aside>
+        <div class="auth-form">
+          <h2>Register</h2>
+          <form id="register-form">
+            <input name="name" placeholder="Full name" required />
+            <input name="email" type="email" placeholder="Email" required />
+            <input name="password" type="password" placeholder="Password" required />
+            <select name="role">
+              <option value="admin">admin</option>
+              <option value="staff">staff</option>
+              <option value="teacher">teacher</option>
+              <option value="student">student</option>
+              <option value="finance">finance</option>
+              <option value="parent">parent</option>
+            </select>
+            <button type="submit">Register and continue</button>
+          </form>
+          <p><a href="/login.html">Already have an account? Login</a></p>
+          <pre id="output" class="output">Waiting for registration...</pre>
+        </div>
+      </section>
+    </div>
+    <script type="module" src="/js/auth.js"></script>
+  </body>
+</html>
