@@ -1,8 +1,25 @@
-import { withAuthGuard, mountShell, moduleConfigs, request, printOutput, formToPayload, clearSession } from './api.js';
+import {
+  withAuthGuard,
+  mountShell,
+  moduleConfigs,
+  request,
+  printOutput,
+  formToPayload,
+  clearSession,
+  getSession,
+  canAccessPage,
+  getDefaultHomePath
+} from './api.js';
 
 withAuthGuard();
 const pageKey = document.body.dataset.page;
 const config = moduleConfigs[pageKey];
+const session = getSession();
+const role = session?.user?.role;
+
+if (!canAccessPage(role, pageKey)) {
+  window.location.href = getDefaultHomePath(role);
+}
 
 document.body.innerHTML = mountShell(pageKey);
 
