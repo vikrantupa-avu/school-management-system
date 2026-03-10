@@ -7,9 +7,9 @@ const teacherSchema = new mongoose.Schema(
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     department: { type: String, required: true },
-    subjects: [{ type: String }],
-    phone: String,
-    qualification: String,
+    subjects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subject' }],
+    phone: { type: String, default: '' },
+    qualification: { type: String, default: '' },
     joiningDate: Date,
     active: { type: Boolean, default: true }
   },

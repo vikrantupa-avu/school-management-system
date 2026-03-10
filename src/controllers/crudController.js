@@ -1,13 +1,24 @@
 import { asyncHandler } from '../utils/asyncHandler.js';
 
-export const buildCrudController = (Model, { populate = '' } = {}) => ({
+export const buildCrudController = (Model, { populate = '', searchableFields = [] } = {}) => ({
   create: asyncHandler(async (req, res) => {
     const record = await Model.create(req.body);
     res.status(201).json(record);
   }),
   list: asyncHandler(async (req, res) => {
-    const query = Model.find();
+    const { search = '', limit } = req.query;
+    const queryFilter = {};
+
+    if (search && searchableFields.length) {
+      queryFilter.$or = searchableFields.map((field) => ({
+        [field]: { $regex: search, $options: 'i' }
+      }));
+    }
+
+    const query = Model.find(queryFilter);
     if (populate) query.populate(populate);
+    if (limit) query.limit(Number(limit));
+
     const records = await query.sort({ createdAt: -1 });
     res.json(records);
   }),
