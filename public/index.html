@@ -7,54 +7,26 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <main class="container">
-      <h1>School Management System</h1>
-      <p>JavaScript full-stack starter with authentication, role-based access, and core school modules.</p>
-
-      <section>
-        <h2>Quick start</h2>
-        <ol>
-          <li>Register an admin user.</li>
-          <li>Log in and copy token.</li>
-          <li>Use token to call module APIs.</li>
-        </ol>
+    <div class="auth-layout">
+      <section class="auth-card">
+        <aside class="auth-side">
+          <h1>🏫 School Management System</h1>
+          <p>Modern workspace for admins, staff, teachers, finance teams, and school operations.</p>
+          <ul>
+            <li>Role-based authentication</li>
+            <li>Dedicated screens for each module</li>
+            <li>Dashboard insights and finance overview</li>
+          </ul>
+        </aside>
+        <div class="auth-form">
+          <h2>Start here</h2>
+          <p>Use the links below to continue.</p>
+          <div class="grid">
+            <a class="card" href="/login.html"><h3>Login</h3><p>Go to your account and access module pages.</p></a>
+            <a class="card" href="/register.html"><h3>Register</h3><p>Create a new user with role.</p></a>
+          </div>
+        </div>
       </section>
-
-      <section class="card">
-        <h3>Register</h3>
-        <form id="register-form">
-          <input name="name" placeholder="Name" required />
-          <input name="email" placeholder="Email" type="email" required />
-          <input name="password" placeholder="Password (min 8 chars)" type="password" required />
-          <select name="role">
-            <option value="admin">admin</option>
-            <option value="staff">staff</option>
-            <option value="teacher">teacher</option>
-            <option value="student">student</option>
-            <option value="finance">finance</option>
-            <option value="parent">parent</option>
-          </select>
-          <button type="submit">Register</button>
-        </form>
-      </section>
-
-      <section class="card">
-        <h3>Login</h3>
-        <form id="login-form">
-          <input name="email" placeholder="Email" type="email" required />
-          <input name="password" placeholder="Password" type="password" required />
-          <button type="submit">Login</button>
-        </form>
-      </section>
-
-      <section class="card">
-        <h3>Dashboard</h3>
-        <button id="dashboard-btn">Load Dashboard /api/dashboard</button>
-      </section>
-
-      <pre id="output">Output appears here.</pre>
-    </main>
-
-    <script src="/app.js"></script>
+    </div>
   </body>
 </html>
